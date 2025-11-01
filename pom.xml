@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.marceltanuri.commons</groupId>
     <artifactId>oauth-client-commons-module</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
     <packaging>bundle</packaging>
     <name>OAuth Client Commons OSGi Module</name>
     <description>A generic OAuth2 client as an OSGi module, supporting the Client Credentials flow and configurable via OSGi Configuration Admin.</description>
@@ -93,7 +93,7 @@
                         <Bundle-Version>${project.version}</Bundle-Version>
 
                         <Export-Package>
-                            io.github.marceltanuri.commons.oauthclient
+                            io.github.marceltanuri.commons.oauthclient.api
                         </Export-Package>
 
                         <Import-Package> java.net.http;version="[11,21)", com.fasterxml.jackson.annotation;version="[2.13,3)", com.fasterxml.jackson.databind;version="[2.13,3)",

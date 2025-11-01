@@ -5,7 +5,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.metatype.annotations.Designate;
 
-import io.github.marceltanuri.commons.oauthclient.api.*;
+import io.github.marceltanuri.commons.oauthclient.api.OAuth2ClientSettings;
+import io.github.marceltanuri.commons.oauthclient.api.OAuth2Service;
+
 
 /**
  * @author Marcel Tanuri
@@ -24,7 +26,7 @@ public class OAuth2ClientManager implements OAuth2Service {
 	@Activate
 	public void activate(OAuth2ClientSettings settings) {
 		_settings = settings;
-		_service = new OAuth2ClientService(settings, new OAuth2TokenCache());
+		_service = new OAuth2ClientService(settings, OAuth2TokenCache.of(_settings.cacheMaxEntries()));
 	}
 
 	@Override
