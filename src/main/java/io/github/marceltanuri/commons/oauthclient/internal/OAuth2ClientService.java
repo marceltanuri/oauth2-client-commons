@@ -15,14 +15,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.github.marceltanuri.commons.oauthclient.api.*;
+import io.github.marceltanuri.commons.oauthclient.api.OAuth2ClientException;
+import io.github.marceltanuri.commons.oauthclient.api.OAuth2ClientSettings;
+import io.github.marceltanuri.commons.oauthclient.api.OAuth2Service;
 
 
 /**
+ * The internal implementation of the {@link OAuth2Service} interface.
+ * This class is responsible for fetching and caching OAuth2 tokens.
+ *
  * @author Marcel Tanuri
  */
 public class OAuth2ClientService implements OAuth2Service {
 
+	/**
+	 * Constructs a new {@link OAuth2ClientService} with the given settings and cache.
+	 *
+	 * @param settings The configuration for this service.
+	 * @param cache The token cache to use.
+	 */
 	public OAuth2ClientService(OAuth2ClientSettings settings, OAuth2TokenCache cache) {
 		_settings = settings;
 		_cache = cache;
