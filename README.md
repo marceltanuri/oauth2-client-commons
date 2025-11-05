@@ -18,7 +18,7 @@ Add the following dependency to your project's `pom.xml`. Please check for the l
 <dependency>
     <groupId>io.github.marceltanuri.commons</groupId>
     <artifactId>oauth-client-commons-module</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
@@ -26,9 +26,9 @@ Add the following dependency to your project's `pom.xml`. Please check for the l
 
 Create a `.cfg` configuration file in your OSGi container's configuration directory (e.g., `etc/` or `load/`).
 
-The filename should be `io.github.marceltanuri.commons.oauthclient.OAuth2ClientSettings-<client-name>.cfg`.
+The filename should be `io.github.marceltanuri.commons.oauthclient.api.OAuth2ClientSettings-<client-name>.cfg`.
 
-**Configuration Example (`io.github.marceltanuri.commons.oauthclient.OAuth2ClientSettings-myapi.cfg`):**
+**Configuration Example (`io.github.marceltanuri.commons.oauthclient.api.OAuth2ClientSettings-myapi.cfg`):**
 
 ```properties
 # Unique name for this client configuration
@@ -48,7 +48,27 @@ audience="urn:my-api"
 
 # (Optional) The scope of the requested permissions
 scope="read:data"
+
+# (Optional) The maximum number of entries to keep in the token cache.
+cacheMaxEntries=100
+
 ```
+
+**Security Note:** For enhanced security, it is strongly recommended to configure the `clientSecret` using an environment variable instead of placing it directly in the configuration file. The `clientId` can also be configured this way.
+
+The application will automatically look for environment variables with the following naming convention:
+
+-   `IO_GITHUB_MARCELTANURI_COMMONS_OAUTHCLIENT_API_[NORMALIZED_CLIENT_NAME]_CLIENT_ID`
+-   `IO_GITHUB_MARCELTANURI_COMMONS_OAUTHCLIENT_API_[NORMALIZED_CLIENT_NAME]_CLIENT_SECRET`
+
+Where `[NORMALIZED_CLIENT_NAME]` is the `clientName` from your configuration file, converted to uppercase, with any non-alphanumeric characters replaced by underscores.
+
+For the example above (`clientName="myapi"`), the environment variables would be:
+
+-   `IO_GITHUB_MARCELTANURI_COMMONS_OAUTHCLIENT_API_MYAPI_CLIENT_ID`
+-   `IO_GITHUB_MARCELTANURI_COMMONS_OAUTHCLIENT_API_MYAPI_CLIENT_SECRET`
+
+If an environment variable is set, its value will be used, overriding any value present in the `.config` file. You can leave the `clientSecret` property empty or omit it from the file when using an environment variable.
 
 ### 3. Get the Service in Your Code
 

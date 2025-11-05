@@ -25,8 +25,8 @@ public class OAuth2ClientManager implements OAuth2Service {
 
 	@Activate
 	public void activate(OAuth2ClientSettings settings) {
-		_settings = settings;
-		_service = new OAuth2ClientService(settings, OAuth2TokenCache.of(_settings.cacheMaxEntries()));
+		_settings = new OAuth2ClientSettingsProxy(settings);
+		_service = new OAuth2ClientService(_settings, OAuth2TokenCache.of(_settings.cacheMaxEntries()));
 	}
 
 	@Override
